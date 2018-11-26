@@ -5,9 +5,9 @@ spring:
     name: xhh-ro-client
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://192.168.0.200:3306/xhh
+    url: jdbc:mysql://127.0.0.1:3306/xhh
     username: root
-    password: mysql910416
+    password: 123
     type: org.apache.commons.dbcp2.BasicDataSource
     dbcp2:
       max-idle: 5
@@ -46,7 +46,7 @@ logging:
 eureka:
   client: 
     serviceUrl: 
-      defaultZone: http://192.168.0.50:28001/eureka/
+      defaultZone: http://127.0.0.1:28001/eureka/
   instance: 
     metadataMap: 
       instanceId: ${spring.application.name}:${random.value}
