@@ -1,0 +1,36 @@
+前置:
+下载kafka自带集群了zookeeper
+http://kafka.apache.org/downloads.html
+1. 进入Kafka配置目录，D:\Java\Tool\kafka_2.11-0.10.0.1
+
+2. 编辑文件“server.properties”
+
+3. 找到并编辑log.dirs=D:\Java\Tool\kafka_2.11-0.10.0.1\kafka-log,这里的目录自己修改成自己喜欢的
+
+4. 找到并编辑zookeeper.connect=localhost:2181。表示本地运行
+5. Kafka会按照默认，在9092端口上运行，并连接zookeeper的默认端口：2181。
+
+
+启动zookeeper:
+D:\kafka\kafka_2.11-2.1.0\bin\windows\zookeeper-server-start.bat ..\..\config\zookeeper.properties
+启动kafka：
+D:\kafka\kafka_2.11-2.1.0\bin\windows\kafka-server-start.bat ..\..\config\server.properties
+
+进入kafka安装目录:创建主题
+.\bin\windows\kafka-topics.bat --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic test
+.\bin\windows\kafka-topics.bat --create --zookeeper 192.168.0.50:2181 --replication-factor 1 --partitions 1 --topic test
+
+
+进入kafka安装目录:创建生产者
+.\bin\windows\kafka-console-producer.bat --broker-list 192.168.0.50:9092 --topic test
+然后就可以发送消息了
+
+进入kafka安装目录:创建消费者
+.\bin\windows\kafka-console-consumer.bat --zookeeper 192.168.0.50:2181 --topic test
+如果报错:
+（zookeeper is not a recongnized option这个方法过时了,用下面的）
+.\bin\windows\kafka-console-consumer.bat --bootstrap-server 192.168.0.50:9092 --topic test --from-beginning
+.\bin\windows\kafka-console-consumer.bat --bootstrap-server PLAINTEXT://192.168.0.50:9092 --topic test --from-beginning
+could not be established Broker may not 
+然后就可以接收消息了
+
