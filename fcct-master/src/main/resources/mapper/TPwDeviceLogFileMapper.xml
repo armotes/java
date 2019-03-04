@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--命名空间应该是对应接口的包名+接口名 -->
+<mapper namespace="cn.lcp.fcct.mapper.TPwDeviceLogFileMapper">
+
+	<sql id="base_columns">
+            device_file_id,
+            device_id,
+            log_url,
+            log_upload_time,
+            call_key,
+            staff_id,
+            user_push_time,
+            upload_status
+	</sql>
+	
+	<insert id="insertData" parameterType="cn.lcp.fcct.po.TPwDeviceLogFileDO"
+	useGeneratedKeys="true" keyProperty="deviceFileId">
+		insert into t_pw_device_log_file (
+			<include refid="base_columns" />
+		)
+		values(
+             #{deviceFileId},
+             #{deviceId},
+             #{logUrl},
+             #{logUploadTime},
+             #{callKey},
+             #{staffId},
+             #{userPushTime},
+             #{uploadStatus}
+		)  
+	</insert>
+	
+	
+	<select id="getById" parameterType="java.lang.Integer" resultType="cn.lcp.fcct.po.TPwDeviceLogFileDO">
+		SELECT
+			<include refid="base_columns" />
+		FROM t_pw_device_log_file WHERE device_file_id = #{deviceFileId}
+	</select>
+
+	<select id="getAll" resultType="cn.lcp.fcct.po.TPwDeviceLogFileDO">
+		SELECT
+		<include refid="base_columns" />
+		FROM t_pw_device_log_file
+	</select>
+
+	<delete id="deleteById" parameterType="java.lang.Integer">
+		DELETE FROM t_pw_device_log_file WHERE device_file_id = #{deviceFileId}
+	</delete>
+	
+
+	<update id="updateData" parameterType="cn.lcp.fcct.po.TPwDeviceLogFileDO">
+		update t_pw_device_log_file
+		<set>
+                <if test="deviceId!= null">
+                        device_id = #{deviceId},
+                </if>
+                <if test="logUrl!= null">
+                        log_url = #{logUrl},
+                </if>
+                <if test="logUploadTime!= null">
+                        log_upload_time = #{logUploadTime},
+                </if>
+                <if test="callKey!= null">
+                        call_key = #{callKey},
+                </if>
+                <if test="staffId!= null">
+                        staff_id = #{staffId},
+                </if>
+                <if test="userPushTime!= null">
+                        user_push_time = #{userPushTime},
+                </if>
+                <if test="uploadStatus!= null">
+                        upload_status = #{uploadStatus},
+                </if>
+
+		</set>
+			WHERE device_file_id = #{deviceFileId}
+	</update>
+	
+
+</mapper>

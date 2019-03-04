@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--命名空间应该是对应接口的包名+接口名 -->
+<mapper namespace="cn.lcp.fcct.mapper.TPwDepartmentMapper">
+
+	<sql id="base_columns">
+            dept_id,
+            dept_name,
+            dept_level,
+            com_id,
+            dept_type,
+            parent_dep_id,
+            create_time
+	</sql>
+	
+	<insert id="insertData" parameterType="cn.lcp.fcct.po.TPwDepartmentDO"
+	useGeneratedKeys="true" keyProperty="deptId">
+		insert into t_pw_department (
+			<include refid="base_columns" />
+		)
+		values(
+             #{deptId},
+             #{deptName},
+             #{deptLevel},
+             #{comId},
+             #{deptType},
+             #{parentDepId},
+             #{createTime}
+		)  
+	</insert>
+	
+	
+	<select id="getById" parameterType="java.lang.Integer" resultType="cn.lcp.fcct.po.TPwDepartmentDO">
+		SELECT
+			<include refid="base_columns" />
+		FROM t_pw_department WHERE dept_id = #{deptId}
+	</select>
+
+	<select id="getAll" resultType="cn.lcp.fcct.po.TPwDepartmentDO">
+		SELECT
+		<include refid="base_columns" />
+		FROM t_pw_department
+	</select>
+
+	<delete id="deleteById" parameterType="java.lang.Integer">
+		DELETE FROM t_pw_department WHERE dept_id = #{deptId}
+	</delete>
+	
+
+	<update id="updateData" parameterType="cn.lcp.fcct.po.TPwDepartmentDO">
+		update t_pw_department
+		<set>
+                <if test="deptName!= null">
+                        dept_name = #{deptName},
+                </if>
+                <if test="deptLevel!= null">
+                        dept_level = #{deptLevel},
+                </if>
+                <if test="comId!= null">
+                        com_id = #{comId},
+                </if>
+                <if test="deptType!= null">
+                        dept_type = #{deptType},
+                </if>
+                <if test="parentDepId!= null">
+                        parent_dep_id = #{parentDepId},
+                </if>
+                <if test="createTime!= null">
+                        create_time = #{createTime},
+                </if>
+
+		</set>
+			WHERE dept_id = #{deptId}
+	</update>
+	
+
+</mapper>

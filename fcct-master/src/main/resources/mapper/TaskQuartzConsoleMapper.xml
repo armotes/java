@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--命名空间应该是对应接口的包名+接口名 -->
+<mapper namespace="cn.lcp.fcct.mapper.TaskQuartzConsoleMapper">
+
+	<sql id="base_columns">
+            task_quartz_id,
+            task_batch_name,
+            task_batch_number,
+            task_batch_seq,
+            task_granularity,
+            task_status,
+            task_group,
+            task_group_level,
+            task_job_no,
+            task_artificial_dispatch,
+            task_crontab
+	</sql>
+	
+	<insert id="insertData" parameterType="cn.lcp.fcct.po.TaskQuartzConsoleDO"
+	useGeneratedKeys="true" keyProperty="taskQuartzId">
+		insert into task_quartz_console (
+			<include refid="base_columns" />
+		)
+		values(
+             #{taskQuartzId},
+             #{taskBatchName},
+             #{taskBatchNumber},
+             #{taskBatchSeq},
+             #{taskGranularity},
+             #{taskStatus},
+             #{taskGroup},
+             #{taskGroupLevel},
+             #{taskJobNo},
+             #{taskArtificialDispatch},
+             #{taskCrontab}
+		)  
+	</insert>
+	
+	
+	<select id="getById" parameterType="java.lang.Integer" resultType="cn.lcp.fcct.po.TaskQuartzConsoleDO">
+		SELECT
+			<include refid="base_columns" />
+		FROM task_quartz_console WHERE task_quartz_id = #{taskQuartzId}
+	</select>
+
+	<select id="getAll" resultType="cn.lcp.fcct.po.TaskQuartzConsoleDO">
+		SELECT
+		<include refid="base_columns" />
+		FROM task_quartz_console
+	</select>
+
+	<delete id="deleteById" parameterType="java.lang.Integer">
+		DELETE FROM task_quartz_console WHERE task_quartz_id = #{taskQuartzId}
+	</delete>
+	
+
+	<update id="updateData" parameterType="cn.lcp.fcct.po.TaskQuartzConsoleDO">
+		update task_quartz_console
+		<set>
+                <if test="taskBatchName!= null">
+                        task_batch_name = #{taskBatchName},
+                </if>
+                <if test="taskBatchNumber!= null">
+                        task_batch_number = #{taskBatchNumber},
+                </if>
+                <if test="taskBatchSeq!= null">
+                        task_batch_seq = #{taskBatchSeq},
+                </if>
+                <if test="taskGranularity!= null">
+                        task_granularity = #{taskGranularity},
+                </if>
+                <if test="taskStatus!= null">
+                        task_status = #{taskStatus},
+                </if>
+                <if test="taskGroup!= null">
+                        task_group = #{taskGroup},
+                </if>
+                <if test="taskGroupLevel!= null">
+                        task_group_level = #{taskGroupLevel},
+                </if>
+                <if test="taskJobNo!= null">
+                        task_job_no = #{taskJobNo},
+                </if>
+                <if test="taskArtificialDispatch!= null">
+                        task_artificial_dispatch = #{taskArtificialDispatch},
+                </if>
+                <if test="taskCrontab!= null">
+                        task_crontab = #{taskCrontab},
+                </if>
+
+		</set>
+			WHERE task_quartz_id = #{taskQuartzId}
+	</update>
+	
+
+</mapper>

@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--命名空间应该是对应接口的包名+接口名 -->
+<mapper namespace="cn.lcp.fcct.mapper.SysDeviceMapper">
+
+	<sql id="base_columns">
+            device_id,
+            work_id,
+            order_mst_id,
+            order_dtl_id,
+            device_identification,
+            device_number,
+            device_location,
+            device_longitude,
+            device_latitude,
+            device_install_time,
+            device_status,
+            device_tags,
+            push_id,
+            product_id,
+            maintenance_admin_user_id,
+            maintenance_admin_user_name,
+            site_admin_user_id,
+            site_admin_user_name,
+            setup_admin_user_id,
+            setup_admin_user_name,
+            max_getwater_capacity,
+            max_consume_capacity,
+            advs_count_down,
+            operation_count_down,
+            device_province,
+            device_city,
+            device_district,
+            department_id,
+            scene,
+            device_token,
+            produce_number
+	</sql>
+	
+	<insert id="insertData" parameterType="cn.lcp.fcct.po.SysDeviceDO"
+	useGeneratedKeys="true" keyProperty="deviceId">
+		insert into sys_device (
+			<include refid="base_columns" />
+		)
+		values(
+             #{deviceId},
+             #{workId},
+             #{orderMstId},
+             #{orderDtlId},
+             #{deviceIdentification},
+             #{deviceNumber},
+             #{deviceLocation},
+             #{deviceLongitude},
+             #{deviceLatitude},
+             #{deviceInstallTime},
+             #{deviceStatus},
+             #{deviceTags},
+             #{pushId},
+             #{productId},
+             #{maintenanceAdminUserId},
+             #{maintenanceAdminUserName},
+             #{siteAdminUserId},
+             #{siteAdminUserName},
+             #{setupAdminUserId},
+             #{setupAdminUserName},
+             #{maxGetwaterCapacity},
+             #{maxConsumeCapacity},
+             #{advsCountDown},
+             #{operationCountDown},
+             #{deviceProvince},
+             #{deviceCity},
+             #{deviceDistrict},
+             #{departmentId},
+             #{scene},
+             #{deviceToken},
+             #{produceNumber}
+		)  
+	</insert>
+	
+	
+	<select id="getById" parameterType="java.lang.Integer" resultType="cn.lcp.fcct.po.SysDeviceDO">
+		SELECT
+			<include refid="base_columns" />
+		FROM sys_device WHERE device_id = #{deviceId}
+	</select>
+
+	<select id="getAll" resultType="cn.lcp.fcct.po.SysDeviceDO">
+		SELECT
+		<include refid="base_columns" />
+		FROM sys_device
+	</select>
+
+	<delete id="deleteById" parameterType="java.lang.Integer">
+		DELETE FROM sys_device WHERE device_id = #{deviceId}
+	</delete>
+	
+
+	<update id="updateData" parameterType="cn.lcp.fcct.po.SysDeviceDO">
+		update sys_device
+		<set>
+                <if test="workId!= null">
+                        work_id = #{workId},
+                </if>
+                <if test="orderMstId!= null">
+                        order_mst_id = #{orderMstId},
+                </if>
+                <if test="orderDtlId!= null">
+                        order_dtl_id = #{orderDtlId},
+                </if>
+                <if test="deviceIdentification!= null">
+                        device_identification = #{deviceIdentification},
+                </if>
+                <if test="deviceNumber!= null">
+                        device_number = #{deviceNumber},
+                </if>
+                <if test="deviceLocation!= null">
+                        device_location = #{deviceLocation},
+                </if>
+                <if test="deviceLongitude!= null">
+                        device_longitude = #{deviceLongitude},
+                </if>
+                <if test="deviceLatitude!= null">
+                        device_latitude = #{deviceLatitude},
+                </if>
+                <if test="deviceInstallTime!= null">
+                        device_install_time = #{deviceInstallTime},
+                </if>
+                <if test="deviceStatus!= null">
+                        device_status = #{deviceStatus},
+                </if>
+                <if test="deviceTags!= null">
+                        device_tags = #{deviceTags},
+                </if>
+                <if test="pushId!= null">
+                        push_id = #{pushId},
+                </if>
+                <if test="productId!= null">
+                        product_id = #{productId},
+                </if>
+                <if test="maintenanceAdminUserId!= null">
+                        maintenance_admin_user_id = #{maintenanceAdminUserId},
+                </if>
+                <if test="maintenanceAdminUserName!= null">
+                        maintenance_admin_user_name = #{maintenanceAdminUserName},
+                </if>
+                <if test="siteAdminUserId!= null">
+                        site_admin_user_id = #{siteAdminUserId},
+                </if>
+                <if test="siteAdminUserName!= null">
+                        site_admin_user_name = #{siteAdminUserName},
+                </if>
+                <if test="setupAdminUserId!= null">
+                        setup_admin_user_id = #{setupAdminUserId},
+                </if>
+                <if test="setupAdminUserName!= null">
+                        setup_admin_user_name = #{setupAdminUserName},
+                </if>
+                <if test="maxGetwaterCapacity!= null">
+                        max_getwater_capacity = #{maxGetwaterCapacity},
+                </if>
+                <if test="maxConsumeCapacity!= null">
+                        max_consume_capacity = #{maxConsumeCapacity},
+                </if>
+                <if test="advsCountDown!= null">
+                        advs_count_down = #{advsCountDown},
+                </if>
+                <if test="operationCountDown!= null">
+                        operation_count_down = #{operationCountDown},
+                </if>
+                <if test="deviceProvince!= null">
+                        device_province = #{deviceProvince},
+                </if>
+                <if test="deviceCity!= null">
+                        device_city = #{deviceCity},
+                </if>
+                <if test="deviceDistrict!= null">
+                        device_district = #{deviceDistrict},
+                </if>
+                <if test="departmentId!= null">
+                        department_id = #{departmentId},
+                </if>
+                <if test="scene!= null">
+                        scene = #{scene},
+                </if>
+                <if test="deviceToken!= null">
+                        device_token = #{deviceToken},
+                </if>
+                <if test="produceNumber!= null">
+                        produce_number = #{produceNumber},
+                </if>
+
+		</set>
+			WHERE device_id = #{deviceId}
+	</update>
+	
+
+</mapper>

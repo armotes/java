@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--命名空间应该是对应接口的包名+接口名 -->
+<mapper namespace="cn.lcp.fcct.mapper.TPwContractFileMapper">
+
+	<sql id="base_columns">
+            file_id,
+            order_id,
+            file_name,
+            file_size,
+            file_path,
+            staff_id,
+            create_time
+	</sql>
+	
+	<insert id="insertData" parameterType="cn.lcp.fcct.po.TPwContractFileDO"
+	useGeneratedKeys="true" keyProperty="fileId">
+		insert into t_pw_contract_file (
+			<include refid="base_columns" />
+		)
+		values(
+             #{fileId},
+             #{orderId},
+             #{fileName},
+             #{fileSize},
+             #{filePath},
+             #{staffId},
+             #{createTime}
+		)  
+	</insert>
+	
+	
+	<select id="getById" parameterType="java.lang.Integer" resultType="cn.lcp.fcct.po.TPwContractFileDO">
+		SELECT
+			<include refid="base_columns" />
+		FROM t_pw_contract_file WHERE file_id = #{fileId}
+	</select>
+
+	<select id="getAll" resultType="cn.lcp.fcct.po.TPwContractFileDO">
+		SELECT
+		<include refid="base_columns" />
+		FROM t_pw_contract_file
+	</select>
+
+	<delete id="deleteById" parameterType="java.lang.Integer">
+		DELETE FROM t_pw_contract_file WHERE file_id = #{fileId}
+	</delete>
+	
+
+	<update id="updateData" parameterType="cn.lcp.fcct.po.TPwContractFileDO">
+		update t_pw_contract_file
+		<set>
+                <if test="orderId!= null">
+                        order_id = #{orderId},
+                </if>
+                <if test="fileName!= null">
+                        file_name = #{fileName},
+                </if>
+                <if test="fileSize!= null">
+                        file_size = #{fileSize},
+                </if>
+                <if test="filePath!= null">
+                        file_path = #{filePath},
+                </if>
+                <if test="staffId!= null">
+                        staff_id = #{staffId},
+                </if>
+                <if test="createTime!= null">
+                        create_time = #{createTime},
+                </if>
+
+		</set>
+			WHERE file_id = #{fileId}
+	</update>
+	
+
+</mapper>

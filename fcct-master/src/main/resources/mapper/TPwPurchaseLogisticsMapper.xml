@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--命名空间应该是对应接口的包名+接口名 -->
+<mapper namespace="cn.lcp.fcct.mapper.TPwPurchaseLogisticsMapper">
+
+	<sql id="base_columns">
+            logistics_id,
+            purchase_id,
+            logistics_bill,
+            logistics_images_url,
+            creat_time,
+            staff_id
+	</sql>
+	
+	<insert id="insertData" parameterType="cn.lcp.fcct.po.TPwPurchaseLogisticsDO"
+	useGeneratedKeys="true" keyProperty="logisticsId">
+		insert into t_pw_purchase_logistics (
+			<include refid="base_columns" />
+		)
+		values(
+             #{logisticsId},
+             #{purchaseId},
+             #{logisticsBill},
+             #{logisticsImagesUrl},
+             #{creatTime},
+             #{staffId}
+		)  
+	</insert>
+	
+	
+	<select id="getById" parameterType="java.lang.Integer" resultType="cn.lcp.fcct.po.TPwPurchaseLogisticsDO">
+		SELECT
+			<include refid="base_columns" />
+		FROM t_pw_purchase_logistics WHERE logistics_id = #{logisticsId}
+	</select>
+
+	<select id="getAll" resultType="cn.lcp.fcct.po.TPwPurchaseLogisticsDO">
+		SELECT
+		<include refid="base_columns" />
+		FROM t_pw_purchase_logistics
+	</select>
+
+	<delete id="deleteById" parameterType="java.lang.Integer">
+		DELETE FROM t_pw_purchase_logistics WHERE logistics_id = #{logisticsId}
+	</delete>
+	
+
+	<update id="updateData" parameterType="cn.lcp.fcct.po.TPwPurchaseLogisticsDO">
+		update t_pw_purchase_logistics
+		<set>
+                <if test="purchaseId!= null">
+                        purchase_id = #{purchaseId},
+                </if>
+                <if test="logisticsBill!= null">
+                        logistics_bill = #{logisticsBill},
+                </if>
+                <if test="logisticsImagesUrl!= null">
+                        logistics_images_url = #{logisticsImagesUrl},
+                </if>
+                <if test="creatTime!= null">
+                        creat_time = #{creatTime},
+                </if>
+                <if test="staffId!= null">
+                        staff_id = #{staffId},
+                </if>
+
+		</set>
+			WHERE logistics_id = #{logisticsId}
+	</update>
+	
+
+</mapper>

@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--命名空间应该是对应接口的包名+接口名 -->
+<mapper namespace="cn.lcp.fcct.mapper.SysDeviceWaterQualityMapper">
+
+	<sql id="base_columns">
+            device_water_quality_id,
+            device_id,
+            device_raw_water,
+            device_pure_water,
+            device_water_quality_time,
+            hot_temp,
+            cold_temp,
+            heating_status,
+            cooling_status,
+            water_purification_status,
+            Flush_status,
+            raw_water_status,
+            water_leakage_status,
+            switch_status,
+            shutdown_status,
+            water_cup_status,
+            hot_water_outlet_status,
+            cold_water_outlet_status,
+            warm_water_outlet_status,
+            heating_temp,
+            cooling_temp,
+            flush_interval,
+            flush_duration,
+            device_raw_flow
+	</sql>
+	
+	<insert id="insertData" parameterType="cn.lcp.fcct.po.SysDeviceWaterQualityDO"
+	useGeneratedKeys="true" keyProperty="deviceWaterQualityId">
+		insert into sys_device_water_quality (
+			<include refid="base_columns" />
+		)
+		values(
+             #{deviceWaterQualityId},
+             #{deviceId},
+             #{deviceRawWater},
+             #{devicePureWater},
+             #{deviceWaterQualityTime},
+             #{hotTemp},
+             #{coldTemp},
+             #{heatingStatus},
+             #{coolingStatus},
+             #{waterPurificationStatus},
+             #{FlushStatus},
+             #{rawWaterStatus},
+             #{waterLeakageStatus},
+             #{switchStatus},
+             #{shutdownStatus},
+             #{waterCupStatus},
+             #{hotWaterOutletStatus},
+             #{coldWaterOutletStatus},
+             #{warmWaterOutletStatus},
+             #{heatingTemp},
+             #{coolingTemp},
+             #{flushInterval},
+             #{flushDuration},
+             #{deviceRawFlow}
+		)  
+	</insert>
+	
+	
+	<select id="getById" parameterType="java.lang.Integer" resultType="cn.lcp.fcct.po.SysDeviceWaterQualityDO">
+		SELECT
+			<include refid="base_columns" />
+		FROM sys_device_water_quality WHERE device_water_quality_id = #{deviceWaterQualityId}
+	</select>
+
+	<select id="getAll" resultType="cn.lcp.fcct.po.SysDeviceWaterQualityDO">
+		SELECT
+		<include refid="base_columns" />
+		FROM sys_device_water_quality
+	</select>
+
+	<delete id="deleteById" parameterType="java.lang.Integer">
+		DELETE FROM sys_device_water_quality WHERE device_water_quality_id = #{deviceWaterQualityId}
+	</delete>
+	
+
+	<update id="updateData" parameterType="cn.lcp.fcct.po.SysDeviceWaterQualityDO">
+		update sys_device_water_quality
+		<set>
+                <if test="deviceId!= null">
+                        device_id = #{deviceId},
+                </if>
+                <if test="deviceRawWater!= null">
+                        device_raw_water = #{deviceRawWater},
+                </if>
+                <if test="devicePureWater!= null">
+                        device_pure_water = #{devicePureWater},
+                </if>
+                <if test="deviceWaterQualityTime!= null">
+                        device_water_quality_time = #{deviceWaterQualityTime},
+                </if>
+                <if test="hotTemp!= null">
+                        hot_temp = #{hotTemp},
+                </if>
+                <if test="coldTemp!= null">
+                        cold_temp = #{coldTemp},
+                </if>
+                <if test="heatingStatus!= null">
+                        heating_status = #{heatingStatus},
+                </if>
+                <if test="coolingStatus!= null">
+                        cooling_status = #{coolingStatus},
+                </if>
+                <if test="waterPurificationStatus!= null">
+                        water_purification_status = #{waterPurificationStatus},
+                </if>
+                <if test="FlushStatus!= null">
+                        Flush_status = #{FlushStatus},
+                </if>
+                <if test="rawWaterStatus!= null">
+                        raw_water_status = #{rawWaterStatus},
+                </if>
+                <if test="waterLeakageStatus!= null">
+                        water_leakage_status = #{waterLeakageStatus},
+                </if>
+                <if test="switchStatus!= null">
+                        switch_status = #{switchStatus},
+                </if>
+                <if test="shutdownStatus!= null">
+                        shutdown_status = #{shutdownStatus},
+                </if>
+                <if test="waterCupStatus!= null">
+                        water_cup_status = #{waterCupStatus},
+                </if>
+                <if test="hotWaterOutletStatus!= null">
+                        hot_water_outlet_status = #{hotWaterOutletStatus},
+                </if>
+                <if test="coldWaterOutletStatus!= null">
+                        cold_water_outlet_status = #{coldWaterOutletStatus},
+                </if>
+                <if test="warmWaterOutletStatus!= null">
+                        warm_water_outlet_status = #{warmWaterOutletStatus},
+                </if>
+                <if test="heatingTemp!= null">
+                        heating_temp = #{heatingTemp},
+                </if>
+                <if test="coolingTemp!= null">
+                        cooling_temp = #{coolingTemp},
+                </if>
+                <if test="flushInterval!= null">
+                        flush_interval = #{flushInterval},
+                </if>
+                <if test="flushDuration!= null">
+                        flush_duration = #{flushDuration},
+                </if>
+                <if test="deviceRawFlow!= null">
+                        device_raw_flow = #{deviceRawFlow},
+                </if>
+
+		</set>
+			WHERE device_water_quality_id = #{deviceWaterQualityId}
+	</update>
+	
+
+</mapper>

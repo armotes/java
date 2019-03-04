@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--命名空间应该是对应接口的包名+接口名 -->
+<mapper namespace="cn.lcp.fcct.mapper.TPwProductMapper">
+
+	<sql id="base_columns">
+            product_id,
+            product_model,
+            product_name,
+            product_type,
+            product_cost_price,
+            product_suggested_price,
+            product_dep_team,
+            product_dep_time,
+            product_memo,
+            staff_id,
+            creat_time,
+            product_status,
+            product_main_image_path
+	</sql>
+	
+	<insert id="insertData" parameterType="cn.lcp.fcct.po.TPwProductDO"
+	useGeneratedKeys="true" keyProperty="productId">
+		insert into t_pw_product (
+			<include refid="base_columns" />
+		)
+		values(
+             #{productId},
+             #{productModel},
+             #{productName},
+             #{productType},
+             #{productCostPrice},
+             #{productSuggestedPrice},
+             #{productDepTeam},
+             #{productDepTime},
+             #{productMemo},
+             #{staffId},
+             #{creatTime},
+             #{productStatus},
+             #{productMainImagePath}
+		)  
+	</insert>
+	
+	
+	<select id="getById" parameterType="java.lang.Integer" resultType="cn.lcp.fcct.po.TPwProductDO">
+		SELECT
+			<include refid="base_columns" />
+		FROM t_pw_product WHERE product_id = #{productId}
+	</select>
+
+	<select id="getAll" resultType="cn.lcp.fcct.po.TPwProductDO">
+		SELECT
+		<include refid="base_columns" />
+		FROM t_pw_product
+	</select>
+
+	<delete id="deleteById" parameterType="java.lang.Integer">
+		DELETE FROM t_pw_product WHERE product_id = #{productId}
+	</delete>
+	
+
+	<update id="updateData" parameterType="cn.lcp.fcct.po.TPwProductDO">
+		update t_pw_product
+		<set>
+                <if test="productModel!= null">
+                        product_model = #{productModel},
+                </if>
+                <if test="productName!= null">
+                        product_name = #{productName},
+                </if>
+                <if test="productType!= null">
+                        product_type = #{productType},
+                </if>
+                <if test="productCostPrice!= null">
+                        product_cost_price = #{productCostPrice},
+                </if>
+                <if test="productSuggestedPrice!= null">
+                        product_suggested_price = #{productSuggestedPrice},
+                </if>
+                <if test="productDepTeam!= null">
+                        product_dep_team = #{productDepTeam},
+                </if>
+                <if test="productDepTime!= null">
+                        product_dep_time = #{productDepTime},
+                </if>
+                <if test="productMemo!= null">
+                        product_memo = #{productMemo},
+                </if>
+                <if test="staffId!= null">
+                        staff_id = #{staffId},
+                </if>
+                <if test="creatTime!= null">
+                        creat_time = #{creatTime},
+                </if>
+                <if test="productStatus!= null">
+                        product_status = #{productStatus},
+                </if>
+                <if test="productMainImagePath!= null">
+                        product_main_image_path = #{productMainImagePath},
+                </if>
+
+		</set>
+			WHERE product_id = #{productId}
+	</update>
+	
+
+</mapper>

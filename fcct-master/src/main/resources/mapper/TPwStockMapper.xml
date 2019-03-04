@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--命名空间应该是对应接口的包名+接口名 -->
+<mapper namespace="cn.lcp.fcct.mapper.TPwStockMapper">
+
+	<sql id="base_columns">
+            stock_id,
+            product_id,
+            stock_count,
+            com_id
+	</sql>
+	
+	<insert id="insertData" parameterType="cn.lcp.fcct.po.TPwStockDO"
+	useGeneratedKeys="true" keyProperty="stockId">
+		insert into t_pw_stock (
+			<include refid="base_columns" />
+		)
+		values(
+             #{stockId},
+             #{productId},
+             #{stockCount},
+             #{comId}
+		)  
+	</insert>
+	
+	
+	<select id="getById" parameterType="java.lang.Integer" resultType="cn.lcp.fcct.po.TPwStockDO">
+		SELECT
+			<include refid="base_columns" />
+		FROM t_pw_stock WHERE stock_id = #{stockId}
+	</select>
+
+	<select id="getAll" resultType="cn.lcp.fcct.po.TPwStockDO">
+		SELECT
+		<include refid="base_columns" />
+		FROM t_pw_stock
+	</select>
+
+	<delete id="deleteById" parameterType="java.lang.Integer">
+		DELETE FROM t_pw_stock WHERE stock_id = #{stockId}
+	</delete>
+	
+
+	<update id="updateData" parameterType="cn.lcp.fcct.po.TPwStockDO">
+		update t_pw_stock
+		<set>
+                <if test="productId!= null">
+                        product_id = #{productId},
+                </if>
+                <if test="stockCount!= null">
+                        stock_count = #{stockCount},
+                </if>
+                <if test="comId!= null">
+                        com_id = #{comId},
+                </if>
+
+		</set>
+			WHERE stock_id = #{stockId}
+	</update>
+	
+
+</mapper>

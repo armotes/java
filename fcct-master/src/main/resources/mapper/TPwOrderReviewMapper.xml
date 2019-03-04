@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--命名空间应该是对应接口的包名+接口名 -->
+<mapper namespace="cn.lcp.fcct.mapper.TPwOrderReviewMapper">
+
+	<sql id="base_columns">
+            review_id,
+            order_id,
+            order_status,
+            staff_id,
+            memo,
+            create_time,
+            last_update_time
+	</sql>
+	
+	<insert id="insertData" parameterType="cn.lcp.fcct.po.TPwOrderReviewDO"
+	useGeneratedKeys="true" keyProperty="reviewId">
+		insert into t_pw_order_review (
+			<include refid="base_columns" />
+		)
+		values(
+             #{reviewId},
+             #{orderId},
+             #{orderStatus},
+             #{staffId},
+             #{memo},
+             #{createTime},
+             #{lastUpdateTime}
+		)  
+	</insert>
+	
+	
+	<select id="getById" parameterType="java.lang.Integer" resultType="cn.lcp.fcct.po.TPwOrderReviewDO">
+		SELECT
+			<include refid="base_columns" />
+		FROM t_pw_order_review WHERE review_id = #{reviewId}
+	</select>
+
+	<select id="getAll" resultType="cn.lcp.fcct.po.TPwOrderReviewDO">
+		SELECT
+		<include refid="base_columns" />
+		FROM t_pw_order_review
+	</select>
+
+	<delete id="deleteById" parameterType="java.lang.Integer">
+		DELETE FROM t_pw_order_review WHERE review_id = #{reviewId}
+	</delete>
+	
+
+	<update id="updateData" parameterType="cn.lcp.fcct.po.TPwOrderReviewDO">
+		update t_pw_order_review
+		<set>
+                <if test="orderId!= null">
+                        order_id = #{orderId},
+                </if>
+                <if test="orderStatus!= null">
+                        order_status = #{orderStatus},
+                </if>
+                <if test="staffId!= null">
+                        staff_id = #{staffId},
+                </if>
+                <if test="memo!= null">
+                        memo = #{memo},
+                </if>
+                <if test="createTime!= null">
+                        create_time = #{createTime},
+                </if>
+                <if test="lastUpdateTime!= null">
+                        last_update_time = #{lastUpdateTime},
+                </if>
+
+		</set>
+			WHERE review_id = #{reviewId}
+	</update>
+	
+
+</mapper>

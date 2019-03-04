@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--命名空间应该是对应接口的包名+接口名 -->
+<mapper namespace="cn.lcp.fcct.mapper.TPwDeviceParamConfigMapper">
+
+	<sql id="base_columns">
+            cfg_id,
+            device_id,
+            cfg_network_time,
+            cfg_network_times,
+            cfg_pp_time,
+            cfg_pp_flow,
+            cfg_pp_max_flow,
+            cfg_pp_change_flow,
+            cfg_pp_change_time,
+            cfg_grain_carbon_time,
+            cfg_grain_carbon_flow,
+            cfg_grain_carbon_max_flow,
+            cfg_grain_carbon_change_flow,
+            cfg_grain_carbon_change_time,
+            cfg_press_carbon_time,
+            cfg_press_carbon_flow,
+            cfg_press_carbon_max_flow,
+            cfg_press_carbon_change_flow,
+            cfg_press_carbon_change_time,
+            cfg_pose_carbon_time,
+            cfg_pose_carbon_flow,
+            cfg_pose_carbon_max_flow,
+            cfg_pose_carbon_change_flow,
+            cfg_pose_carbon_change_time,
+            cfg_ro_time,
+            cfg_ro_flow,
+            cfg_ro_max_flow,
+            cfg_ro_change_flow,
+            cfg_ro_change_time,
+            cfg_up_time,
+            cfg_max_flow,
+            cfg_volume,
+            cfg_flush_interval,
+            cfg_flush_duration,
+            cfg_heating_temp,
+            cfg_cooling_temp,
+            cfg_heating_allday,
+            cfg_heating_interval,
+            cfg_cooling_allday,
+            cfg_cooling_interval,
+            cfg_conversion_ratio
+	</sql>
+	
+	<insert id="insertData" parameterType="cn.lcp.fcct.po.TPwDeviceParamConfigDO"
+	useGeneratedKeys="true" keyProperty="cfgId">
+		insert into t_pw_device_param_config (
+			<include refid="base_columns" />
+		)
+		values(
+             #{cfgId},
+             #{deviceId},
+             #{cfgNetworkTime},
+             #{cfgNetworkTimes},
+             #{cfgPpTime},
+             #{cfgPpFlow},
+             #{cfgPpMaxFlow},
+             #{cfgPpChangeFlow},
+             #{cfgPpChangeTime},
+             #{cfgGrainCarbonTime},
+             #{cfgGrainCarbonFlow},
+             #{cfgGrainCarbonMaxFlow},
+             #{cfgGrainCarbonChangeFlow},
+             #{cfgGrainCarbonChangeTime},
+             #{cfgPressCarbonTime},
+             #{cfgPressCarbonFlow},
+             #{cfgPressCarbonMaxFlow},
+             #{cfgPressCarbonChangeFlow},
+             #{cfgPressCarbonChangeTime},
+             #{cfgPoseCarbonTime},
+             #{cfgPoseCarbonFlow},
+             #{cfgPoseCarbonMaxFlow},
+             #{cfgPoseCarbonChangeFlow},
+             #{cfgPoseCarbonChangeTime},
+             #{cfgRoTime},
+             #{cfgRoFlow},
+             #{cfgRoMaxFlow},
+             #{cfgRoChangeFlow},
+             #{cfgRoChangeTime},
+             #{cfgUpTime},
+             #{cfgMaxFlow},
+             #{cfgVolume},
+             #{cfgFlushInterval},
+             #{cfgFlushDuration},
+             #{cfgHeatingTemp},
+             #{cfgCoolingTemp},
+             #{cfgHeatingAllday},
+             #{cfgHeatingInterval},
+             #{cfgCoolingAllday},
+             #{cfgCoolingInterval},
+             #{cfgConversionRatio}
+		)  
+	</insert>
+	
+	
+	<select id="getById" parameterType="java.lang.Integer" resultType="cn.lcp.fcct.po.TPwDeviceParamConfigDO">
+		SELECT
+			<include refid="base_columns" />
+		FROM t_pw_device_param_config WHERE cfg_id = #{cfgId}
+	</select>
+
+	<select id="getAll" resultType="cn.lcp.fcct.po.TPwDeviceParamConfigDO">
+		SELECT
+		<include refid="base_columns" />
+		FROM t_pw_device_param_config
+	</select>
+
+	<delete id="deleteById" parameterType="java.lang.Integer">
+		DELETE FROM t_pw_device_param_config WHERE cfg_id = #{cfgId}
+	</delete>
+	
+
+	<update id="updateData" parameterType="cn.lcp.fcct.po.TPwDeviceParamConfigDO">
+		update t_pw_device_param_config
+		<set>
+                <if test="deviceId!= null">
+                        device_id = #{deviceId},
+                </if>
+                <if test="cfgNetworkTime!= null">
+                        cfg_network_time = #{cfgNetworkTime},
+                </if>
+                <if test="cfgNetworkTimes!= null">
+                        cfg_network_times = #{cfgNetworkTimes},
+                </if>
+                <if test="cfgPpTime!= null">
+                        cfg_pp_time = #{cfgPpTime},
+                </if>
+                <if test="cfgPpFlow!= null">
+                        cfg_pp_flow = #{cfgPpFlow},
+                </if>
+                <if test="cfgPpMaxFlow!= null">
+                        cfg_pp_max_flow = #{cfgPpMaxFlow},
+                </if>
+                <if test="cfgPpChangeFlow!= null">
+                        cfg_pp_change_flow = #{cfgPpChangeFlow},
+                </if>
+                <if test="cfgPpChangeTime!= null">
+                        cfg_pp_change_time = #{cfgPpChangeTime},
+                </if>
+                <if test="cfgGrainCarbonTime!= null">
+                        cfg_grain_carbon_time = #{cfgGrainCarbonTime},
+                </if>
+                <if test="cfgGrainCarbonFlow!= null">
+                        cfg_grain_carbon_flow = #{cfgGrainCarbonFlow},
+                </if>
+                <if test="cfgGrainCarbonMaxFlow!= null">
+                        cfg_grain_carbon_max_flow = #{cfgGrainCarbonMaxFlow},
+                </if>
+                <if test="cfgGrainCarbonChangeFlow!= null">
+                        cfg_grain_carbon_change_flow = #{cfgGrainCarbonChangeFlow},
+                </if>
+                <if test="cfgGrainCarbonChangeTime!= null">
+                        cfg_grain_carbon_change_time = #{cfgGrainCarbonChangeTime},
+                </if>
+                <if test="cfgPressCarbonTime!= null">
+                        cfg_press_carbon_time = #{cfgPressCarbonTime},
+                </if>
+                <if test="cfgPressCarbonFlow!= null">
+                        cfg_press_carbon_flow = #{cfgPressCarbonFlow},
+                </if>
+                <if test="cfgPressCarbonMaxFlow!= null">
+                        cfg_press_carbon_max_flow = #{cfgPressCarbonMaxFlow},
+                </if>
+                <if test="cfgPressCarbonChangeFlow!= null">
+                        cfg_press_carbon_change_flow = #{cfgPressCarbonChangeFlow},
+                </if>
+                <if test="cfgPressCarbonChangeTime!= null">
+                        cfg_press_carbon_change_time = #{cfgPressCarbonChangeTime},
+                </if>
+                <if test="cfgPoseCarbonTime!= null">
+                        cfg_pose_carbon_time = #{cfgPoseCarbonTime},
+                </if>
+                <if test="cfgPoseCarbonFlow!= null">
+                        cfg_pose_carbon_flow = #{cfgPoseCarbonFlow},
+                </if>
+                <if test="cfgPoseCarbonMaxFlow!= null">
+                        cfg_pose_carbon_max_flow = #{cfgPoseCarbonMaxFlow},
+                </if>
+                <if test="cfgPoseCarbonChangeFlow!= null">
+                        cfg_pose_carbon_change_flow = #{cfgPoseCarbonChangeFlow},
+                </if>
+                <if test="cfgPoseCarbonChangeTime!= null">
+                        cfg_pose_carbon_change_time = #{cfgPoseCarbonChangeTime},
+                </if>
+                <if test="cfgRoTime!= null">
+                        cfg_ro_time = #{cfgRoTime},
+                </if>
+                <if test="cfgRoFlow!= null">
+                        cfg_ro_flow = #{cfgRoFlow},
+                </if>
+                <if test="cfgRoMaxFlow!= null">
+                        cfg_ro_max_flow = #{cfgRoMaxFlow},
+                </if>
+                <if test="cfgRoChangeFlow!= null">
+                        cfg_ro_change_flow = #{cfgRoChangeFlow},
+                </if>
+                <if test="cfgRoChangeTime!= null">
+                        cfg_ro_change_time = #{cfgRoChangeTime},
+                </if>
+                <if test="cfgUpTime!= null">
+                        cfg_up_time = #{cfgUpTime},
+                </if>
+                <if test="cfgMaxFlow!= null">
+                        cfg_max_flow = #{cfgMaxFlow},
+                </if>
+                <if test="cfgVolume!= null">
+                        cfg_volume = #{cfgVolume},
+                </if>
+                <if test="cfgFlushInterval!= null">
+                        cfg_flush_interval = #{cfgFlushInterval},
+                </if>
+                <if test="cfgFlushDuration!= null">
+                        cfg_flush_duration = #{cfgFlushDuration},
+                </if>
+                <if test="cfgHeatingTemp!= null">
+                        cfg_heating_temp = #{cfgHeatingTemp},
+                </if>
+                <if test="cfgCoolingTemp!= null">
+                        cfg_cooling_temp = #{cfgCoolingTemp},
+                </if>
+                <if test="cfgHeatingAllday!= null">
+                        cfg_heating_allday = #{cfgHeatingAllday},
+                </if>
+                <if test="cfgHeatingInterval!= null">
+                        cfg_heating_interval = #{cfgHeatingInterval},
+                </if>
+                <if test="cfgCoolingAllday!= null">
+                        cfg_cooling_allday = #{cfgCoolingAllday},
+                </if>
+                <if test="cfgCoolingInterval!= null">
+                        cfg_cooling_interval = #{cfgCoolingInterval},
+                </if>
+                <if test="cfgConversionRatio!= null">
+                        cfg_conversion_ratio = #{cfgConversionRatio},
+                </if>
+
+		</set>
+			WHERE cfg_id = #{cfgId}
+	</update>
+	
+
+</mapper>

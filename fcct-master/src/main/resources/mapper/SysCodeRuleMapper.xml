@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--命名空间应该是对应接口的包名+接口名 -->
+<mapper namespace="cn.lcp.fcct.mapper.SysCodeRuleMapper">
+
+	<sql id="base_columns">
+            sys_code_rule_id,
+            sys_code_rule_name,
+            sys_code_rule_core,
+            sys_code_rule_type,
+            sys_code_rule_status,
+            sys_code_rule_fill,
+            sys_code_rule_length,
+            sys_memo,
+            sys_dync,
+            sys_code_rule_seq
+	</sql>
+	
+	<insert id="insertData" parameterType="cn.lcp.fcct.po.SysCodeRuleDO"
+	useGeneratedKeys="true" keyProperty="sysCodeRuleId">
+		insert into sys_code_rule (
+			<include refid="base_columns" />
+		)
+		values(
+             #{sysCodeRuleId},
+             #{sysCodeRuleName},
+             #{sysCodeRuleCore},
+             #{sysCodeRuleType},
+             #{sysCodeRuleStatus},
+             #{sysCodeRuleFill},
+             #{sysCodeRuleLength},
+             #{sysMemo},
+             #{sysDync},
+             #{sysCodeRuleSeq}
+		)  
+	</insert>
+	
+	
+	<select id="getById" parameterType="java.lang.Integer" resultType="cn.lcp.fcct.po.SysCodeRuleDO">
+		SELECT
+			<include refid="base_columns" />
+		FROM sys_code_rule WHERE sys_code_rule_id = #{sysCodeRuleId}
+	</select>
+
+	<select id="getAll" resultType="cn.lcp.fcct.po.SysCodeRuleDO">
+		SELECT
+		<include refid="base_columns" />
+		FROM sys_code_rule
+	</select>
+
+	<delete id="deleteById" parameterType="java.lang.Integer">
+		DELETE FROM sys_code_rule WHERE sys_code_rule_id = #{sysCodeRuleId}
+	</delete>
+	
+
+	<update id="updateData" parameterType="cn.lcp.fcct.po.SysCodeRuleDO">
+		update sys_code_rule
+		<set>
+                <if test="sysCodeRuleName!= null">
+                        sys_code_rule_name = #{sysCodeRuleName},
+                </if>
+                <if test="sysCodeRuleCore!= null">
+                        sys_code_rule_core = #{sysCodeRuleCore},
+                </if>
+                <if test="sysCodeRuleType!= null">
+                        sys_code_rule_type = #{sysCodeRuleType},
+                </if>
+                <if test="sysCodeRuleStatus!= null">
+                        sys_code_rule_status = #{sysCodeRuleStatus},
+                </if>
+                <if test="sysCodeRuleFill!= null">
+                        sys_code_rule_fill = #{sysCodeRuleFill},
+                </if>
+                <if test="sysCodeRuleLength!= null">
+                        sys_code_rule_length = #{sysCodeRuleLength},
+                </if>
+                <if test="sysMemo!= null">
+                        sys_memo = #{sysMemo},
+                </if>
+                <if test="sysDync!= null">
+                        sys_dync = #{sysDync},
+                </if>
+                <if test="sysCodeRuleSeq!= null">
+                        sys_code_rule_seq = #{sysCodeRuleSeq},
+                </if>
+
+		</set>
+			WHERE sys_code_rule_id = #{sysCodeRuleId}
+	</update>
+	
+
+</mapper>

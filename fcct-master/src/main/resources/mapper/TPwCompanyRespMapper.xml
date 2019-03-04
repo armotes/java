@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--命名空间应该是对应接口的包名+接口名 -->
+<mapper namespace="cn.lcp.fcct.mapper.TPwCompanyRespMapper">
+
+	<sql id="base_columns">
+            resp_id,
+            com_id,
+            staff_id,
+            resp_main,
+            resp_level,
+            create_time,
+            last_update_time
+	</sql>
+	
+	<insert id="insertData" parameterType="cn.lcp.fcct.po.TPwCompanyRespDO"
+	useGeneratedKeys="true" keyProperty="respId">
+		insert into t_pw_company_resp (
+			<include refid="base_columns" />
+		)
+		values(
+             #{respId},
+             #{comId},
+             #{staffId},
+             #{respMain},
+             #{respLevel},
+             #{createTime},
+             #{lastUpdateTime}
+		)  
+	</insert>
+	
+	
+	<select id="getById" parameterType="java.lang.Integer" resultType="cn.lcp.fcct.po.TPwCompanyRespDO">
+		SELECT
+			<include refid="base_columns" />
+		FROM t_pw_company_resp WHERE resp_id = #{respId}
+	</select>
+
+	<select id="getAll" resultType="cn.lcp.fcct.po.TPwCompanyRespDO">
+		SELECT
+		<include refid="base_columns" />
+		FROM t_pw_company_resp
+	</select>
+
+	<delete id="deleteById" parameterType="java.lang.Integer">
+		DELETE FROM t_pw_company_resp WHERE resp_id = #{respId}
+	</delete>
+	
+
+	<update id="updateData" parameterType="cn.lcp.fcct.po.TPwCompanyRespDO">
+		update t_pw_company_resp
+		<set>
+                <if test="comId!= null">
+                        com_id = #{comId},
+                </if>
+                <if test="staffId!= null">
+                        staff_id = #{staffId},
+                </if>
+                <if test="respMain!= null">
+                        resp_main = #{respMain},
+                </if>
+                <if test="respLevel!= null">
+                        resp_level = #{respLevel},
+                </if>
+                <if test="createTime!= null">
+                        create_time = #{createTime},
+                </if>
+                <if test="lastUpdateTime!= null">
+                        last_update_time = #{lastUpdateTime},
+                </if>
+
+		</set>
+			WHERE resp_id = #{respId}
+	</update>
+	
+
+</mapper>

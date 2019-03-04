@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--命名空间应该是对应接口的包名+接口名 -->
+<mapper namespace="cn.lcp.fcct.mapper.TPwIndustryMapper">
+
+	<sql id="base_columns">
+            industry_id,
+            industry_name,
+            industry_des,
+            create_time
+	</sql>
+	
+	<insert id="insertData" parameterType="cn.lcp.fcct.po.TPwIndustryDO"
+	useGeneratedKeys="true" keyProperty="industryId">
+		insert into t_pw_industry (
+			<include refid="base_columns" />
+		)
+		values(
+             #{industryId},
+             #{industryName},
+             #{industryDes},
+             #{createTime}
+		)  
+	</insert>
+	
+	
+	<select id="getById" parameterType="java.lang.Integer" resultType="cn.lcp.fcct.po.TPwIndustryDO">
+		SELECT
+			<include refid="base_columns" />
+		FROM t_pw_industry WHERE industry_id = #{industryId}
+	</select>
+
+	<select id="getAll" resultType="cn.lcp.fcct.po.TPwIndustryDO">
+		SELECT
+		<include refid="base_columns" />
+		FROM t_pw_industry
+	</select>
+
+	<delete id="deleteById" parameterType="java.lang.Integer">
+		DELETE FROM t_pw_industry WHERE industry_id = #{industryId}
+	</delete>
+	
+
+	<update id="updateData" parameterType="cn.lcp.fcct.po.TPwIndustryDO">
+		update t_pw_industry
+		<set>
+                <if test="industryName!= null">
+                        industry_name = #{industryName},
+                </if>
+                <if test="industryDes!= null">
+                        industry_des = #{industryDes},
+                </if>
+                <if test="createTime!= null">
+                        create_time = #{createTime},
+                </if>
+
+		</set>
+			WHERE industry_id = #{industryId}
+	</update>
+	
+
+</mapper>

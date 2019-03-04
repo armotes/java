@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--命名空间应该是对应接口的包名+接口名 -->
+<mapper namespace="cn.lcp.fcct.mapper.TPwIndustryAreaMapper">
+
+	<sql id="base_columns">
+            area_id,
+            area_name,
+            area_type,
+            area_des,
+            area_province,
+            area_city,
+            create_time,
+            last_update_time
+	</sql>
+	
+	<insert id="insertData" parameterType="cn.lcp.fcct.po.TPwIndustryAreaDO"
+	useGeneratedKeys="true" keyProperty="areaId">
+		insert into t_pw_industry_area (
+			<include refid="base_columns" />
+		)
+		values(
+             #{areaId},
+             #{areaName},
+             #{areaType},
+             #{areaDes},
+             #{areaProvince},
+             #{areaCity},
+             #{createTime},
+             #{lastUpdateTime}
+		)  
+	</insert>
+	
+	
+	<select id="getById" parameterType="java.lang.Integer" resultType="cn.lcp.fcct.po.TPwIndustryAreaDO">
+		SELECT
+			<include refid="base_columns" />
+		FROM t_pw_industry_area WHERE area_id = #{areaId}
+	</select>
+
+	<select id="getAll" resultType="cn.lcp.fcct.po.TPwIndustryAreaDO">
+		SELECT
+		<include refid="base_columns" />
+		FROM t_pw_industry_area
+	</select>
+
+	<delete id="deleteById" parameterType="java.lang.Integer">
+		DELETE FROM t_pw_industry_area WHERE area_id = #{areaId}
+	</delete>
+	
+
+	<update id="updateData" parameterType="cn.lcp.fcct.po.TPwIndustryAreaDO">
+		update t_pw_industry_area
+		<set>
+                <if test="areaName!= null">
+                        area_name = #{areaName},
+                </if>
+                <if test="areaType!= null">
+                        area_type = #{areaType},
+                </if>
+                <if test="areaDes!= null">
+                        area_des = #{areaDes},
+                </if>
+                <if test="areaProvince!= null">
+                        area_province = #{areaProvince},
+                </if>
+                <if test="areaCity!= null">
+                        area_city = #{areaCity},
+                </if>
+                <if test="createTime!= null">
+                        create_time = #{createTime},
+                </if>
+                <if test="lastUpdateTime!= null">
+                        last_update_time = #{lastUpdateTime},
+                </if>
+
+		</set>
+			WHERE area_id = #{areaId}
+	</update>
+	
+
+</mapper>

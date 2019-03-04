@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--命名空间应该是对应接口的包名+接口名 -->
+<mapper namespace="cn.lcp.fcct.mapper.${poEntity}Mapper">
+
+	<sql id="base_columns">
+${columnNames}
+	</sql>
+	
+	<insert id="insertData" parameterType="cn.lcp.fcct.po.${poEntityDO}"
+	useGeneratedKeys="true" keyProperty="${poIDName}">
+		insert into ${tableName} (
+			<include refid="base_columns" />
+		)
+		values(
+${entityParamNames}
+		)  
+	</insert>
+	
+	
+	<select id="getById" parameterType="java.lang.${poIDType}" resultType="cn.lcp.fcct.po.${poEntityDO}">
+		SELECT
+			<include refid="base_columns" />
+		FROM ${tableName} WHERE ${columnIDName} = #{${poIDName}}
+	</select>
+
+	<select id="getAll" resultType="cn.lcp.fcct.po.${poEntityDO}">
+		SELECT
+		<include refid="base_columns" />
+		FROM ${tableName}
+	</select>
+
+	<delete id="deleteById" parameterType="java.lang.${poIDType}">
+		DELETE FROM ${tableName} WHERE ${columnIDName} = #{${poIDName}}
+	</delete>
+	
+
+	<update id="updateData" parameterType="cn.lcp.fcct.po.${poEntityDO}">
+		update ${tableName}
+		<set>
+${xmlUpdateIF}
+		</set>
+			WHERE ${columnIDName} = #{${poIDName}}
+	</update>
+	
+
+</mapper>

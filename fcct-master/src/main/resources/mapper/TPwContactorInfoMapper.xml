@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--命名空间应该是对应接口的包名+接口名 -->
+<mapper namespace="cn.lcp.fcct.mapper.TPwContactorInfoMapper">
+
+	<sql id="base_columns">
+            contact_id,
+            customer_id,
+            contact_name,
+            contact_position,
+            contact_tel,
+            contact_qq,
+            contact_email,
+            contact_add,
+            contact_memo,
+            contact_status,
+            contact_main,
+            create_time,
+            last_update_time
+	</sql>
+	
+	<insert id="insertData" parameterType="cn.lcp.fcct.po.TPwContactorInfoDO"
+	useGeneratedKeys="true" keyProperty="contactId">
+		insert into t_pw_contactor_info (
+			<include refid="base_columns" />
+		)
+		values(
+             #{contactId},
+             #{customerId},
+             #{contactName},
+             #{contactPosition},
+             #{contactTel},
+             #{contactQq},
+             #{contactEmail},
+             #{contactAdd},
+             #{contactMemo},
+             #{contactStatus},
+             #{contactMain},
+             #{createTime},
+             #{lastUpdateTime}
+		)  
+	</insert>
+	
+	
+	<select id="getById" parameterType="java.lang.Integer" resultType="cn.lcp.fcct.po.TPwContactorInfoDO">
+		SELECT
+			<include refid="base_columns" />
+		FROM t_pw_contactor_info WHERE contact_id = #{contactId}
+	</select>
+
+	<select id="getAll" resultType="cn.lcp.fcct.po.TPwContactorInfoDO">
+		SELECT
+		<include refid="base_columns" />
+		FROM t_pw_contactor_info
+	</select>
+
+	<delete id="deleteById" parameterType="java.lang.Integer">
+		DELETE FROM t_pw_contactor_info WHERE contact_id = #{contactId}
+	</delete>
+	
+
+	<update id="updateData" parameterType="cn.lcp.fcct.po.TPwContactorInfoDO">
+		update t_pw_contactor_info
+		<set>
+                <if test="customerId!= null">
+                        customer_id = #{customerId},
+                </if>
+                <if test="contactName!= null">
+                        contact_name = #{contactName},
+                </if>
+                <if test="contactPosition!= null">
+                        contact_position = #{contactPosition},
+                </if>
+                <if test="contactTel!= null">
+                        contact_tel = #{contactTel},
+                </if>
+                <if test="contactQq!= null">
+                        contact_qq = #{contactQq},
+                </if>
+                <if test="contactEmail!= null">
+                        contact_email = #{contactEmail},
+                </if>
+                <if test="contactAdd!= null">
+                        contact_add = #{contactAdd},
+                </if>
+                <if test="contactMemo!= null">
+                        contact_memo = #{contactMemo},
+                </if>
+                <if test="contactStatus!= null">
+                        contact_status = #{contactStatus},
+                </if>
+                <if test="contactMain!= null">
+                        contact_main = #{contactMain},
+                </if>
+                <if test="createTime!= null">
+                        create_time = #{createTime},
+                </if>
+                <if test="lastUpdateTime!= null">
+                        last_update_time = #{lastUpdateTime},
+                </if>
+
+		</set>
+			WHERE contact_id = #{contactId}
+	</update>
+	
+
+</mapper>

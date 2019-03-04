@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--命名空间应该是对应接口的包名+接口名 -->
+<mapper namespace="cn.lcp.fcct.mapper.TPwStockLogMapper">
+
+	<sql id="base_columns">
+            stock_log_id,
+            product_id,
+            staff_id,
+            stock_num,
+            stock_log_time,
+            stock_log_status,
+            stock_log_memo,
+            stock_log_type
+	</sql>
+	
+	<insert id="insertData" parameterType="cn.lcp.fcct.po.TPwStockLogDO"
+	useGeneratedKeys="true" keyProperty="stockLogId">
+		insert into t_pw_stock_log (
+			<include refid="base_columns" />
+		)
+		values(
+             #{stockLogId},
+             #{productId},
+             #{staffId},
+             #{stockNum},
+             #{stockLogTime},
+             #{stockLogStatus},
+             #{stockLogMemo},
+             #{stockLogType}
+		)  
+	</insert>
+	
+	
+	<select id="getById" parameterType="java.lang.Integer" resultType="cn.lcp.fcct.po.TPwStockLogDO">
+		SELECT
+			<include refid="base_columns" />
+		FROM t_pw_stock_log WHERE stock_log_id = #{stockLogId}
+	</select>
+
+	<select id="getAll" resultType="cn.lcp.fcct.po.TPwStockLogDO">
+		SELECT
+		<include refid="base_columns" />
+		FROM t_pw_stock_log
+	</select>
+
+	<delete id="deleteById" parameterType="java.lang.Integer">
+		DELETE FROM t_pw_stock_log WHERE stock_log_id = #{stockLogId}
+	</delete>
+	
+
+	<update id="updateData" parameterType="cn.lcp.fcct.po.TPwStockLogDO">
+		update t_pw_stock_log
+		<set>
+                <if test="productId!= null">
+                        product_id = #{productId},
+                </if>
+                <if test="staffId!= null">
+                        staff_id = #{staffId},
+                </if>
+                <if test="stockNum!= null">
+                        stock_num = #{stockNum},
+                </if>
+                <if test="stockLogTime!= null">
+                        stock_log_time = #{stockLogTime},
+                </if>
+                <if test="stockLogStatus!= null">
+                        stock_log_status = #{stockLogStatus},
+                </if>
+                <if test="stockLogMemo!= null">
+                        stock_log_memo = #{stockLogMemo},
+                </if>
+                <if test="stockLogType!= null">
+                        stock_log_type = #{stockLogType},
+                </if>
+
+		</set>
+			WHERE stock_log_id = #{stockLogId}
+	</update>
+	
+
+</mapper>

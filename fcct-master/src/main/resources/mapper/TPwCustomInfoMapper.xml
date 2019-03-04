@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--命名空间应该是对应接口的包名+接口名 -->
+<mapper namespace="cn.lcp.fcct.mapper.TPwCustomInfoMapper">
+
+	<sql id="base_columns">
+            coustomer_id,
+            resp_staff_id,
+            company_id,
+            customer_name,
+            customer_tel,
+            customer_add,
+            customer_memo,
+            customer_status,
+            industry_id,
+            create_time,
+            last_update_time
+	</sql>
+	
+	<insert id="insertData" parameterType="cn.lcp.fcct.po.TPwCustomInfoDO"
+	useGeneratedKeys="true" keyProperty="coustomerId">
+		insert into t_pw_custom_info (
+			<include refid="base_columns" />
+		)
+		values(
+             #{coustomerId},
+             #{respStaffId},
+             #{companyId},
+             #{customerName},
+             #{customerTel},
+             #{customerAdd},
+             #{customerMemo},
+             #{customerStatus},
+             #{industryId},
+             #{createTime},
+             #{lastUpdateTime}
+		)  
+	</insert>
+	
+	
+	<select id="getById" parameterType="java.lang.Integer" resultType="cn.lcp.fcct.po.TPwCustomInfoDO">
+		SELECT
+			<include refid="base_columns" />
+		FROM t_pw_custom_info WHERE coustomer_id = #{coustomerId}
+	</select>
+
+	<select id="getAll" resultType="cn.lcp.fcct.po.TPwCustomInfoDO">
+		SELECT
+		<include refid="base_columns" />
+		FROM t_pw_custom_info
+	</select>
+
+	<delete id="deleteById" parameterType="java.lang.Integer">
+		DELETE FROM t_pw_custom_info WHERE coustomer_id = #{coustomerId}
+	</delete>
+	
+
+	<update id="updateData" parameterType="cn.lcp.fcct.po.TPwCustomInfoDO">
+		update t_pw_custom_info
+		<set>
+                <if test="respStaffId!= null">
+                        resp_staff_id = #{respStaffId},
+                </if>
+                <if test="companyId!= null">
+                        company_id = #{companyId},
+                </if>
+                <if test="customerName!= null">
+                        customer_name = #{customerName},
+                </if>
+                <if test="customerTel!= null">
+                        customer_tel = #{customerTel},
+                </if>
+                <if test="customerAdd!= null">
+                        customer_add = #{customerAdd},
+                </if>
+                <if test="customerMemo!= null">
+                        customer_memo = #{customerMemo},
+                </if>
+                <if test="customerStatus!= null">
+                        customer_status = #{customerStatus},
+                </if>
+                <if test="industryId!= null">
+                        industry_id = #{industryId},
+                </if>
+                <if test="createTime!= null">
+                        create_time = #{createTime},
+                </if>
+                <if test="lastUpdateTime!= null">
+                        last_update_time = #{lastUpdateTime},
+                </if>
+
+		</set>
+			WHERE coustomer_id = #{coustomerId}
+	</update>
+	
+
+</mapper>

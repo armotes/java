@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--命名空间应该是对应接口的包名+接口名 -->
+<mapper namespace="cn.lcp.fcct.mapper.TPwOrderMapper">
+
+	<sql id="base_columns">
+            order_id,
+            order_no,
+            resp_staff_id,
+            create_staff_id,
+            com_id,
+            product_id,
+            device_count,
+            order_status,
+            create_time,
+            last_update_time,
+            review_memo
+	</sql>
+	
+	<insert id="insertData" parameterType="cn.lcp.fcct.po.TPwOrderDO"
+	useGeneratedKeys="true" keyProperty="orderId">
+		insert into t_pw_order (
+			<include refid="base_columns" />
+		)
+		values(
+             #{orderId},
+             #{orderNo},
+             #{respStaffId},
+             #{createStaffId},
+             #{comId},
+             #{productId},
+             #{deviceCount},
+             #{orderStatus},
+             #{createTime},
+             #{lastUpdateTime},
+             #{reviewMemo}
+		)  
+	</insert>
+	
+	
+	<select id="getById" parameterType="java.lang.Integer" resultType="cn.lcp.fcct.po.TPwOrderDO">
+		SELECT
+			<include refid="base_columns" />
+		FROM t_pw_order WHERE order_id = #{orderId}
+	</select>
+
+	<select id="getAll" resultType="cn.lcp.fcct.po.TPwOrderDO">
+		SELECT
+		<include refid="base_columns" />
+		FROM t_pw_order
+	</select>
+
+	<delete id="deleteById" parameterType="java.lang.Integer">
+		DELETE FROM t_pw_order WHERE order_id = #{orderId}
+	</delete>
+	
+
+	<update id="updateData" parameterType="cn.lcp.fcct.po.TPwOrderDO">
+		update t_pw_order
+		<set>
+                <if test="orderNo!= null">
+                        order_no = #{orderNo},
+                </if>
+                <if test="respStaffId!= null">
+                        resp_staff_id = #{respStaffId},
+                </if>
+                <if test="createStaffId!= null">
+                        create_staff_id = #{createStaffId},
+                </if>
+                <if test="comId!= null">
+                        com_id = #{comId},
+                </if>
+                <if test="productId!= null">
+                        product_id = #{productId},
+                </if>
+                <if test="deviceCount!= null">
+                        device_count = #{deviceCount},
+                </if>
+                <if test="orderStatus!= null">
+                        order_status = #{orderStatus},
+                </if>
+                <if test="createTime!= null">
+                        create_time = #{createTime},
+                </if>
+                <if test="lastUpdateTime!= null">
+                        last_update_time = #{lastUpdateTime},
+                </if>
+                <if test="reviewMemo!= null">
+                        review_memo = #{reviewMemo},
+                </if>
+
+		</set>
+			WHERE order_id = #{orderId}
+	</update>
+	
+
+</mapper>

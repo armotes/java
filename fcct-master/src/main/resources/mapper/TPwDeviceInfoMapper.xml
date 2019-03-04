@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--命名空间应该是对应接口的包名+接口名 -->
+<mapper namespace="cn.lcp.fcct.mapper.TPwDeviceInfoMapper">
+
+	<sql id="base_columns">
+            device_id,
+            list_id,
+            batch_id,
+            device_number,
+            device_location,
+            device_longitude,
+            device_latitude,
+            device_install_time,
+            device_status,
+            push_id,
+            product_id,
+            device_version,
+            max_getwater_capacity,
+            max_consume_capacity,
+            advs_count_down,
+            operation_count_down,
+            device_token,
+            machine_number,
+            create_time,
+            last_update_time
+	</sql>
+	
+	<insert id="insertData" parameterType="cn.lcp.fcct.po.TPwDeviceInfoDO"
+	useGeneratedKeys="true" keyProperty="deviceId">
+		insert into t_pw_device_info (
+			<include refid="base_columns" />
+		)
+		values(
+             #{deviceId},
+             #{listId},
+             #{batchId},
+             #{deviceNumber},
+             #{deviceLocation},
+             #{deviceLongitude},
+             #{deviceLatitude},
+             #{deviceInstallTime},
+             #{deviceStatus},
+             #{pushId},
+             #{productId},
+             #{deviceVersion},
+             #{maxGetwaterCapacity},
+             #{maxConsumeCapacity},
+             #{advsCountDown},
+             #{operationCountDown},
+             #{deviceToken},
+             #{machineNumber},
+             #{createTime},
+             #{lastUpdateTime}
+		)  
+	</insert>
+	
+	
+	<select id="getById" parameterType="java.lang.Integer" resultType="cn.lcp.fcct.po.TPwDeviceInfoDO">
+		SELECT
+			<include refid="base_columns" />
+		FROM t_pw_device_info WHERE device_id = #{deviceId}
+	</select>
+
+	<select id="getAll" resultType="cn.lcp.fcct.po.TPwDeviceInfoDO">
+		SELECT
+		<include refid="base_columns" />
+		FROM t_pw_device_info
+	</select>
+
+	<delete id="deleteById" parameterType="java.lang.Integer">
+		DELETE FROM t_pw_device_info WHERE device_id = #{deviceId}
+	</delete>
+	
+
+	<update id="updateData" parameterType="cn.lcp.fcct.po.TPwDeviceInfoDO">
+		update t_pw_device_info
+		<set>
+                <if test="listId!= null">
+                        list_id = #{listId},
+                </if>
+                <if test="batchId!= null">
+                        batch_id = #{batchId},
+                </if>
+                <if test="deviceNumber!= null">
+                        device_number = #{deviceNumber},
+                </if>
+                <if test="deviceLocation!= null">
+                        device_location = #{deviceLocation},
+                </if>
+                <if test="deviceLongitude!= null">
+                        device_longitude = #{deviceLongitude},
+                </if>
+                <if test="deviceLatitude!= null">
+                        device_latitude = #{deviceLatitude},
+                </if>
+                <if test="deviceInstallTime!= null">
+                        device_install_time = #{deviceInstallTime},
+                </if>
+                <if test="deviceStatus!= null">
+                        device_status = #{deviceStatus},
+                </if>
+                <if test="pushId!= null">
+                        push_id = #{pushId},
+                </if>
+                <if test="productId!= null">
+                        product_id = #{productId},
+                </if>
+                <if test="deviceVersion!= null">
+                        device_version = #{deviceVersion},
+                </if>
+                <if test="maxGetwaterCapacity!= null">
+                        max_getwater_capacity = #{maxGetwaterCapacity},
+                </if>
+                <if test="maxConsumeCapacity!= null">
+                        max_consume_capacity = #{maxConsumeCapacity},
+                </if>
+                <if test="advsCountDown!= null">
+                        advs_count_down = #{advsCountDown},
+                </if>
+                <if test="operationCountDown!= null">
+                        operation_count_down = #{operationCountDown},
+                </if>
+                <if test="deviceToken!= null">
+                        device_token = #{deviceToken},
+                </if>
+                <if test="machineNumber!= null">
+                        machine_number = #{machineNumber},
+                </if>
+                <if test="createTime!= null">
+                        create_time = #{createTime},
+                </if>
+                <if test="lastUpdateTime!= null">
+                        last_update_time = #{lastUpdateTime},
+                </if>
+
+		</set>
+			WHERE device_id = #{deviceId}
+	</update>
+	
+
+</mapper>

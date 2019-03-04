@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--命名空间应该是对应接口的包名+接口名 -->
+<mapper namespace="cn.lcp.fcct.mapper.TPwDeviceUseMapper">
+
+	<sql id="base_columns">
+            device_use_id,
+            device_id,
+            device_use_type,
+            device_use_time
+	</sql>
+	
+	<insert id="insertData" parameterType="cn.lcp.fcct.po.TPwDeviceUseDO"
+	useGeneratedKeys="true" keyProperty="deviceUseId">
+		insert into t_pw_device_use (
+			<include refid="base_columns" />
+		)
+		values(
+             #{deviceUseId},
+             #{deviceId},
+             #{deviceUseType},
+             #{deviceUseTime}
+		)  
+	</insert>
+	
+	
+	<select id="getById" parameterType="java.lang.Integer" resultType="cn.lcp.fcct.po.TPwDeviceUseDO">
+		SELECT
+			<include refid="base_columns" />
+		FROM t_pw_device_use WHERE device_use_id = #{deviceUseId}
+	</select>
+
+	<select id="getAll" resultType="cn.lcp.fcct.po.TPwDeviceUseDO">
+		SELECT
+		<include refid="base_columns" />
+		FROM t_pw_device_use
+	</select>
+
+	<delete id="deleteById" parameterType="java.lang.Integer">
+		DELETE FROM t_pw_device_use WHERE device_use_id = #{deviceUseId}
+	</delete>
+	
+
+	<update id="updateData" parameterType="cn.lcp.fcct.po.TPwDeviceUseDO">
+		update t_pw_device_use
+		<set>
+                <if test="deviceId!= null">
+                        device_id = #{deviceId},
+                </if>
+                <if test="deviceUseType!= null">
+                        device_use_type = #{deviceUseType},
+                </if>
+                <if test="deviceUseTime!= null">
+                        device_use_time = #{deviceUseTime},
+                </if>
+
+		</set>
+			WHERE device_use_id = #{deviceUseId}
+	</update>
+	
+
+</mapper>

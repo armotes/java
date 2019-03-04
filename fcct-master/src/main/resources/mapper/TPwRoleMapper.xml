@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--命名空间应该是对应接口的包名+接口名 -->
+<mapper namespace="cn.lcp.fcct.mapper.TPwRoleMapper">
+
+	<sql id="base_columns">
+            role_id,
+            role_name,
+            role_des,
+            create_time
+	</sql>
+	
+	<insert id="insertData" parameterType="cn.lcp.fcct.po.TPwRoleDO"
+	useGeneratedKeys="true" keyProperty="roleId">
+		insert into t_pw_role (
+			<include refid="base_columns" />
+		)
+		values(
+             #{roleId},
+             #{roleName},
+             #{roleDes},
+             #{createTime}
+		)  
+	</insert>
+	
+	
+	<select id="getById" parameterType="java.lang.Integer" resultType="cn.lcp.fcct.po.TPwRoleDO">
+		SELECT
+			<include refid="base_columns" />
+		FROM t_pw_role WHERE role_id = #{roleId}
+	</select>
+
+	<select id="getAll" resultType="cn.lcp.fcct.po.TPwRoleDO">
+		SELECT
+		<include refid="base_columns" />
+		FROM t_pw_role
+	</select>
+
+	<delete id="deleteById" parameterType="java.lang.Integer">
+		DELETE FROM t_pw_role WHERE role_id = #{roleId}
+	</delete>
+	
+
+	<update id="updateData" parameterType="cn.lcp.fcct.po.TPwRoleDO">
+		update t_pw_role
+		<set>
+                <if test="roleName!= null">
+                        role_name = #{roleName},
+                </if>
+                <if test="roleDes!= null">
+                        role_des = #{roleDes},
+                </if>
+                <if test="createTime!= null">
+                        create_time = #{createTime},
+                </if>
+
+		</set>
+			WHERE role_id = #{roleId}
+	</update>
+	
+
+</mapper>

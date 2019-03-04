@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--命名空间应该是对应接口的包名+接口名 -->
+<mapper namespace="cn.lcp.fcct.mapper.TPwCompanyMapper">
+
+	<sql id="base_columns">
+            com_id,
+            com_name,
+            type_id,
+            com_vat_pep,
+            com_add,
+            com_pic,
+            com_tel,
+            account_bank,
+            account,
+            com_status,
+            div_rate,
+            create_time,
+            last_update_time
+	</sql>
+	
+	<insert id="insertData" parameterType="cn.lcp.fcct.po.TPwCompanyDO"
+	useGeneratedKeys="true" keyProperty="comId">
+		insert into t_pw_company (
+			<include refid="base_columns" />
+		)
+		values(
+             #{comId},
+             #{comName},
+             #{typeId},
+             #{comVatPep},
+             #{comAdd},
+             #{comPic},
+             #{comTel},
+             #{accountBank},
+             #{account},
+             #{comStatus},
+             #{divRate},
+             #{createTime},
+             #{lastUpdateTime}
+		)  
+	</insert>
+	
+	
+	<select id="getById" parameterType="java.lang.Integer" resultType="cn.lcp.fcct.po.TPwCompanyDO">
+		SELECT
+			<include refid="base_columns" />
+		FROM t_pw_company WHERE com_id = #{comId}
+	</select>
+
+	<select id="getAll" resultType="cn.lcp.fcct.po.TPwCompanyDO">
+		SELECT
+		<include refid="base_columns" />
+		FROM t_pw_company
+	</select>
+
+	<delete id="deleteById" parameterType="java.lang.Integer">
+		DELETE FROM t_pw_company WHERE com_id = #{comId}
+	</delete>
+	
+
+	<update id="updateData" parameterType="cn.lcp.fcct.po.TPwCompanyDO">
+		update t_pw_company
+		<set>
+                <if test="comName!= null">
+                        com_name = #{comName},
+                </if>
+                <if test="typeId!= null">
+                        type_id = #{typeId},
+                </if>
+                <if test="comVatPep!= null">
+                        com_vat_pep = #{comVatPep},
+                </if>
+                <if test="comAdd!= null">
+                        com_add = #{comAdd},
+                </if>
+                <if test="comPic!= null">
+                        com_pic = #{comPic},
+                </if>
+                <if test="comTel!= null">
+                        com_tel = #{comTel},
+                </if>
+                <if test="accountBank!= null">
+                        account_bank = #{accountBank},
+                </if>
+                <if test="account!= null">
+                        account = #{account},
+                </if>
+                <if test="comStatus!= null">
+                        com_status = #{comStatus},
+                </if>
+                <if test="divRate!= null">
+                        div_rate = #{divRate},
+                </if>
+                <if test="createTime!= null">
+                        create_time = #{createTime},
+                </if>
+                <if test="lastUpdateTime!= null">
+                        last_update_time = #{lastUpdateTime},
+                </if>
+
+		</set>
+			WHERE com_id = #{comId}
+	</update>
+	
+
+</mapper>

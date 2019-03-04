@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--命名空间应该是对应接口的包名+接口名 -->
+<mapper namespace="cn.lcp.fcct.mapper.TPwOrderBatchConfigMapper">
+
+	<sql id="base_columns">
+            batch_id,
+            filter_num,
+            hot_price,
+            warm_price,
+            cold_price,
+            cup_price,
+            use_time,
+            max_getwater_capacity,
+            max_consume_capacity,
+            advs_count_down,
+            operation_countdown,
+            conversion_ratio,
+            memo,
+            create_datetime
+	</sql>
+	
+	<insert id="insertData" parameterType="cn.lcp.fcct.po.TPwOrderBatchConfigDO"
+	useGeneratedKeys="true" keyProperty="batchId">
+		insert into t_pw_order_batch_config (
+			<include refid="base_columns" />
+		)
+		values(
+             #{batchId},
+             #{filterNum},
+             #{hotPrice},
+             #{warmPrice},
+             #{coldPrice},
+             #{cupPrice},
+             #{useTime},
+             #{maxGetwaterCapacity},
+             #{maxConsumeCapacity},
+             #{advsCountDown},
+             #{operationCountdown},
+             #{conversionRatio},
+             #{memo},
+             #{createDatetime}
+		)  
+	</insert>
+	
+	
+	<select id="getById" parameterType="java.lang.Integer" resultType="cn.lcp.fcct.po.TPwOrderBatchConfigDO">
+		SELECT
+			<include refid="base_columns" />
+		FROM t_pw_order_batch_config WHERE batch_id = #{batchId}
+	</select>
+
+	<select id="getAll" resultType="cn.lcp.fcct.po.TPwOrderBatchConfigDO">
+		SELECT
+		<include refid="base_columns" />
+		FROM t_pw_order_batch_config
+	</select>
+
+	<delete id="deleteById" parameterType="java.lang.Integer">
+		DELETE FROM t_pw_order_batch_config WHERE batch_id = #{batchId}
+	</delete>
+	
+
+	<update id="updateData" parameterType="cn.lcp.fcct.po.TPwOrderBatchConfigDO">
+		update t_pw_order_batch_config
+		<set>
+                <if test="filterNum!= null">
+                        filter_num = #{filterNum},
+                </if>
+                <if test="hotPrice!= null">
+                        hot_price = #{hotPrice},
+                </if>
+                <if test="warmPrice!= null">
+                        warm_price = #{warmPrice},
+                </if>
+                <if test="coldPrice!= null">
+                        cold_price = #{coldPrice},
+                </if>
+                <if test="cupPrice!= null">
+                        cup_price = #{cupPrice},
+                </if>
+                <if test="useTime!= null">
+                        use_time = #{useTime},
+                </if>
+                <if test="maxGetwaterCapacity!= null">
+                        max_getwater_capacity = #{maxGetwaterCapacity},
+                </if>
+                <if test="maxConsumeCapacity!= null">
+                        max_consume_capacity = #{maxConsumeCapacity},
+                </if>
+                <if test="advsCountDown!= null">
+                        advs_count_down = #{advsCountDown},
+                </if>
+                <if test="operationCountdown!= null">
+                        operation_countdown = #{operationCountdown},
+                </if>
+                <if test="conversionRatio!= null">
+                        conversion_ratio = #{conversionRatio},
+                </if>
+                <if test="memo!= null">
+                        memo = #{memo},
+                </if>
+                <if test="createDatetime!= null">
+                        create_datetime = #{createDatetime},
+                </if>
+
+		</set>
+			WHERE batch_id = #{batchId}
+	</update>
+	
+
+</mapper>

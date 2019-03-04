@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--命名空间应该是对应接口的包名+接口名 -->
+<mapper namespace="cn.lcp.fcct.mapper.TPwOrderBatchMapper">
+
+	<sql id="base_columns">
+            batch_id,
+            order_id,
+            resp_staff_id,
+            create_staff_id,
+            contact_id,
+            customer_id,
+            single_price,
+            batch_num,
+            charge_mode,
+            time_appointment,
+            rent_time,
+            batch_memo,
+            batch_status,
+            setuped_count,
+            industry_id,
+            area_id,
+            batch_config_id,
+            create_datetime,
+            last_update_time
+	</sql>
+	
+	<insert id="insertData" parameterType="cn.lcp.fcct.po.TPwOrderBatchDO"
+	useGeneratedKeys="true" keyProperty="batchId">
+		insert into t_pw_order_batch (
+			<include refid="base_columns" />
+		)
+		values(
+             #{batchId},
+             #{orderId},
+             #{respStaffId},
+             #{createStaffId},
+             #{contactId},
+             #{customerId},
+             #{singlePrice},
+             #{batchNum},
+             #{chargeMode},
+             #{timeAppointment},
+             #{rentTime},
+             #{batchMemo},
+             #{batchStatus},
+             #{setupedCount},
+             #{industryId},
+             #{areaId},
+             #{batchConfigId},
+             #{createDatetime},
+             #{lastUpdateTime}
+		)  
+	</insert>
+	
+	
+	<select id="getById" parameterType="java.lang.Integer" resultType="cn.lcp.fcct.po.TPwOrderBatchDO">
+		SELECT
+			<include refid="base_columns" />
+		FROM t_pw_order_batch WHERE batch_id = #{batchId}
+	</select>
+
+	<select id="getAll" resultType="cn.lcp.fcct.po.TPwOrderBatchDO">
+		SELECT
+		<include refid="base_columns" />
+		FROM t_pw_order_batch
+	</select>
+
+	<delete id="deleteById" parameterType="java.lang.Integer">
+		DELETE FROM t_pw_order_batch WHERE batch_id = #{batchId}
+	</delete>
+	
+
+	<update id="updateData" parameterType="cn.lcp.fcct.po.TPwOrderBatchDO">
+		update t_pw_order_batch
+		<set>
+                <if test="orderId!= null">
+                        order_id = #{orderId},
+                </if>
+                <if test="respStaffId!= null">
+                        resp_staff_id = #{respStaffId},
+                </if>
+                <if test="createStaffId!= null">
+                        create_staff_id = #{createStaffId},
+                </if>
+                <if test="contactId!= null">
+                        contact_id = #{contactId},
+                </if>
+                <if test="customerId!= null">
+                        customer_id = #{customerId},
+                </if>
+                <if test="singlePrice!= null">
+                        single_price = #{singlePrice},
+                </if>
+                <if test="batchNum!= null">
+                        batch_num = #{batchNum},
+                </if>
+                <if test="chargeMode!= null">
+                        charge_mode = #{chargeMode},
+                </if>
+                <if test="timeAppointment!= null">
+                        time_appointment = #{timeAppointment},
+                </if>
+                <if test="rentTime!= null">
+                        rent_time = #{rentTime},
+                </if>
+                <if test="batchMemo!= null">
+                        batch_memo = #{batchMemo},
+                </if>
+                <if test="batchStatus!= null">
+                        batch_status = #{batchStatus},
+                </if>
+                <if test="setupedCount!= null">
+                        setuped_count = #{setupedCount},
+                </if>
+                <if test="industryId!= null">
+                        industry_id = #{industryId},
+                </if>
+                <if test="areaId!= null">
+                        area_id = #{areaId},
+                </if>
+                <if test="batchConfigId!= null">
+                        batch_config_id = #{batchConfigId},
+                </if>
+                <if test="createDatetime!= null">
+                        create_datetime = #{createDatetime},
+                </if>
+                <if test="lastUpdateTime!= null">
+                        last_update_time = #{lastUpdateTime},
+                </if>
+
+		</set>
+			WHERE batch_id = #{batchId}
+	</update>
+	
+
+</mapper>

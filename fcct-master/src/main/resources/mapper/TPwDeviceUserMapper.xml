@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--命名空间应该是对应接口的包名+接口名 -->
+<mapper namespace="cn.lcp.fcct.mapper.TPwDeviceUserMapper">
+
+	<sql id="base_columns">
+            device_user_id,
+            device_id,
+            user_id,
+            memo,
+            create_time,
+            last_update_time
+	</sql>
+	
+	<insert id="insertData" parameterType="cn.lcp.fcct.po.TPwDeviceUserDO"
+	useGeneratedKeys="true" keyProperty="deviceUserId">
+		insert into t_pw_device_user (
+			<include refid="base_columns" />
+		)
+		values(
+             #{deviceUserId},
+             #{deviceId},
+             #{userId},
+             #{memo},
+             #{createTime},
+             #{lastUpdateTime}
+		)  
+	</insert>
+	
+	
+	<select id="getById" parameterType="java.lang.Integer" resultType="cn.lcp.fcct.po.TPwDeviceUserDO">
+		SELECT
+			<include refid="base_columns" />
+		FROM t_pw_device_user WHERE device_user_id = #{deviceUserId}
+	</select>
+
+	<select id="getAll" resultType="cn.lcp.fcct.po.TPwDeviceUserDO">
+		SELECT
+		<include refid="base_columns" />
+		FROM t_pw_device_user
+	</select>
+
+	<delete id="deleteById" parameterType="java.lang.Integer">
+		DELETE FROM t_pw_device_user WHERE device_user_id = #{deviceUserId}
+	</delete>
+	
+
+	<update id="updateData" parameterType="cn.lcp.fcct.po.TPwDeviceUserDO">
+		update t_pw_device_user
+		<set>
+                <if test="deviceId!= null">
+                        device_id = #{deviceId},
+                </if>
+                <if test="userId!= null">
+                        user_id = #{userId},
+                </if>
+                <if test="memo!= null">
+                        memo = #{memo},
+                </if>
+                <if test="createTime!= null">
+                        create_time = #{createTime},
+                </if>
+                <if test="lastUpdateTime!= null">
+                        last_update_time = #{lastUpdateTime},
+                </if>
+
+		</set>
+			WHERE device_user_id = #{deviceUserId}
+	</update>
+	
+
+</mapper>

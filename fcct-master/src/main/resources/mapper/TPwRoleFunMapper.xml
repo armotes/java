@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--命名空间应该是对应接口的包名+接口名 -->
+<mapper namespace="cn.lcp.fcct.mapper.TPwRoleFunMapper">
+
+	<sql id="base_columns">
+            t_id,
+            fun_id,
+            role_id
+	</sql>
+	
+	<insert id="insertData" parameterType="cn.lcp.fcct.po.TPwRoleFunDO"
+	useGeneratedKeys="true" keyProperty="tId">
+		insert into t_pw_role_fun (
+			<include refid="base_columns" />
+		)
+		values(
+             #{tId},
+             #{funId},
+             #{roleId}
+		)  
+	</insert>
+	
+	
+	<select id="getById" parameterType="java.lang.Integer" resultType="cn.lcp.fcct.po.TPwRoleFunDO">
+		SELECT
+			<include refid="base_columns" />
+		FROM t_pw_role_fun WHERE t_id = #{tId}
+	</select>
+
+	<select id="getAll" resultType="cn.lcp.fcct.po.TPwRoleFunDO">
+		SELECT
+		<include refid="base_columns" />
+		FROM t_pw_role_fun
+	</select>
+
+	<delete id="deleteById" parameterType="java.lang.Integer">
+		DELETE FROM t_pw_role_fun WHERE t_id = #{tId}
+	</delete>
+	
+
+	<update id="updateData" parameterType="cn.lcp.fcct.po.TPwRoleFunDO">
+		update t_pw_role_fun
+		<set>
+                <if test="funId!= null">
+                        fun_id = #{funId},
+                </if>
+                <if test="roleId!= null">
+                        role_id = #{roleId},
+                </if>
+
+		</set>
+			WHERE t_id = #{tId}
+	</update>
+	
+
+</mapper>
